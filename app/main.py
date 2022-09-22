@@ -1,6 +1,5 @@
 import sqlite3
 from flask import Flask, render_template, request, redirect
-from app.upload import upload_bp
 
 con = sqlite3.connect("books.db", check_same_thread=False)
 cur = con.cursor()
@@ -14,9 +13,6 @@ con.commit()
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.register_blueprint(upload_bp)
 
 @app.route("/")
 def books():
@@ -46,5 +42,4 @@ def addbook_indb():
 def addbook():
     return render_template("addbook.html")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# app.run(debug=True)
