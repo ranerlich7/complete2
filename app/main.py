@@ -42,4 +42,4 @@ def addbook_indb():
 def addbook():
     return render_template("addbook.html")
 
-app.run(debug=True)
+# app.run(debug=True)
