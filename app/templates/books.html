@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if request.args.get("message") %}
+  <div class="alert alert-primary" role="alert">
+    {{ request.args.get("message") }}
+  </div>
+{% endif %}
+<div class="row row-cols-1 row-cols-md-5 g-4">
+        {% for book in books %}    
+        <div class="col">
+          <div class="card">
+            <img src="https://picsum.photos/200/20{{loop.index}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              {{ book }}
+              <h5 class="card-title">{{ book[0]}}</h5>
+              <p class="card-text">{{ book[1] }} - {{book[2]}} - {{ book[3]}} - id: {{book[4]}}</p>
+              <a href="/deletebook?id={{ book[4] }}" class="btn btn-danger">DELETE</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock%}

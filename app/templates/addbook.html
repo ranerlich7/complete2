@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="/addbookindb" method="POST">
+    Title <input type="text" name="title">
+    Author <input type="text" name="author">
+    Genre <input type="text" name="genre">
+    Year <input type="text" name="year">
+    <input type="submit">
+</form>
+{% endblock %}
