@@ -2,8 +2,8 @@ from flask import Flask, redirect, url_for
 from app.upload import upload_bp
 from app.books import books_bp
 
-UPLOAD_FOLDER = 'uploads'
-DOWLOAD_FOLDER = '../uploads'
+UPLOAD_FOLDER = './app/static/uploads'
+DOWLOAD_FOLDER = './static/uploads'
 
 
 app = Flask(__name__)

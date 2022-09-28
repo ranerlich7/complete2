@@ -8,6 +8,11 @@ cur = con.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS books (title, author, genre, year)")
 con.commit()
 
+# def change_table():
+#     cur.execute("ALTER TABLE books ADD filename ")
+#     con.commit()
+# change_table()
+
 books_bp = Blueprint('books', __name__, url_prefix='/books')
 
 @books_bp.route("/")
@@ -33,8 +38,8 @@ def addbook_indb():
     year = request.form.get('year')
     filename=upload_file(request)
     print(f"filename is:{filename}")
-    print(f"INSERT INTO books VALUES ('{title}', '{author}', '{genre}', '{year}')")
-    cur.execute(f"INSERT INTO books VALUES ('{title}', '{author}', '{genre}', '{year}')")
+    print(f"INSERT INTO books VALUES ('{title}', '{author}', '{genre}', '{year}', '{filename}')")
+    cur.execute(f"INSERT INTO books VALUES ('{title}', '{author}', '{genre}', '{year}', '{filename}')")
     con.commit()
     return redirect("/?message=Book Added")
 
