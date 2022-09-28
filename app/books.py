@@ -1,6 +1,7 @@
 import os
 import sqlite3
 from flask import Blueprint, Flask, render_template, request, redirect
+from app.upload import upload_file
 
 con = sqlite3.connect("books.db", check_same_thread=False)
 cur = con.cursor()
@@ -30,9 +31,8 @@ def addbook_indb():
     author = request.form.get('author')
     genre = request.form.get('genre')
     year = request.form.get('year')
-    file = request.files['file']
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-
+    filename=upload_file(request)
+    print(f"filename is:{filename}")
     print(f"INSERT INTO books VALUES ('{title}', '{author}', '{genre}', '{year}')")
     cur.execute(f"INSERT INTO books VALUES ('{title}', '{author}', '{genre}', '{year}')")
     con.commit()
