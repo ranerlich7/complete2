@@ -10,12 +10,12 @@
         {% for book in books %}    
         <div class="col">
           <div class="card">
-            <img src="https://picsum.photos/200/20{{loop.index}}" class="card-img-top" alt="...">
+            <img style="width:150px;height:150px" src="{{ url_for('static', filename=book.filename) }}" class="card-img-top" alt="...">
             <div class="card-body">
               {{ book }}
-              <h5 class="card-title">{{ book[0]}}</h5>
-              <p class="card-text">{{ book[1] }} - {{book[2]}} - {{ book[3]}} - id: {{book[4]}}</p>
-              <a href="/books/deletebook?id={{ book[4] }}" class="btn btn-danger">DELETE</a>
+              <h5 class="card-title">{{ book.title}}</h5>
+              <p class="card-text"> {{ book.author }} = {{book.genre }}</p>
+              <a href="/books/deletebook?id={{ book.id }}" class="btn btn-danger">DELETE</a>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from flask import Blueprint, Flask, render_template, request, redirect
+from flask import Blueprint, Flask, render_template, request, redirect, url_for
 from app.upload import upload_file
 
 con = sqlite3.connect("books.db", check_same_thread=False)
@@ -17,8 +17,18 @@ books_bp = Blueprint('books', __name__, url_prefix='/books')
 
 @books_bp.route("/")
 def books():
-    result = cur.execute("SELECT *,rowid from books").fetchall()
-    return render_template("books.html", books=result)
+    result = cur.execute("SELECT *,rowid from books")
+    new_result = []
+    for book in result:
+        new_result.append({
+            'title' : book[0],
+            'author': book[1],
+            'genre': book[2],
+            'year': book[3],
+            'filename': f'uploads/{book[4]}',
+            'id': book[5]
+        })
+    return render_template("books.html", books=new_result)
 
 
 @books_bp.route("/deletebook")
