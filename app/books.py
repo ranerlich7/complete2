@@ -5,7 +5,7 @@ from app.upload import upload_file
 
 con = sqlite3.connect("books.db", check_same_thread=False)
 cur = con.cursor()
-cur.execute("CREATE TABLE IF NOT EXISTS books (title, author, genre, year)")
+cur.execute("CREATE TABLE IF NOT EXISTS books (title, author, genre, year, filename)")
 con.commit()
 
 # def change_table():
