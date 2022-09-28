@@ -15,3 +15,6 @@ app.register_blueprint(books_bp)
 @app.route("/")
 def main():
     return redirect(url_for('books.books'))
+
+if __name__ == "__main__":
+  app.run(debug=True)

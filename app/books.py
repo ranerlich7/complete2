@@ -1,5 +1,5 @@
+import os
 import sqlite3
-from app import main
 from flask import Blueprint, Flask, render_template, request, redirect
 
 con = sqlite3.connect("books.db", check_same_thread=False)
@@ -24,10 +24,15 @@ def deletebook():
 
 @books_bp.route("/addbookindb", methods=['POST'])
 def addbook_indb():
+    from app.main import app
+
     title = request.form.get('title')
     author = request.form.get('author')
     genre = request.form.get('genre')
     year = request.form.get('year')
+    file = request.files['file']
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+
     print(f"INSERT INTO books VALUES ('{title}', '{author}', '{genre}', '{year}')")
     cur.execute(f"INSERT INTO books VALUES ('{title}', '{author}', '{genre}', '{year}')")
     con.commit()
