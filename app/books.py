@@ -18,7 +18,7 @@ books_bp = Blueprint('books', __name__, url_prefix='/books')
 @books_bp.route("/")
 def books():
     print(session.get('username'))
-    session['username'] = 'admin'
+    # session['username'] = 'admin'
     print(request.cookies)
     # session.pop('username', None)
     result = cur.execute("SELECT *,rowid from books")
