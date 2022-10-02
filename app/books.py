@@ -5,13 +5,19 @@ from app.upload import upload_file
 
 con = sqlite3.connect("books.db", check_same_thread=False)
 cur = con.cursor()
-cur.execute("CREATE TABLE IF NOT EXISTS books (title, author, genre, year, filename)")
-con.commit()
 
-# def change_table():
-#     cur.execute("ALTER TABLE books ADD filename ")
-#     con.commit()
-# change_table()
+
+def create_database():
+    cur.execute("CREATE TABLE IF NOT EXISTS books (bookId INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,\
+                 book_name, author, year_published, type) ")
+
+    cur.execute("CREATE TABLE IF NOT EXISTS loans (loanId INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,\
+                 loan_date DATE, return_date DATE, bookId INTEGER NOT NULL,\
+                 FOREIGN KEY(bookId) REFERENCES books(bookId))")
+                 
+    con.commit()
+
+create_database()
 
 books_bp = Blueprint('books', __name__, url_prefix='/books')
 
