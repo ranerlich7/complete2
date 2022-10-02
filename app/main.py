@@ -11,7 +11,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['DOWLOAD_FOLDER'] = DOWLOAD_FOLDER
 app.register_blueprint(upload_bp)
 app.register_blueprint(books_bp)
-
+app.secret_key = 'asfajkbasdpgou0-31r98t6dshvl'
 @app.route("/")
 def main():
     return redirect(url_for('books.books'))

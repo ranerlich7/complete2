@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from flask import Blueprint, Flask, render_template, request, redirect, url_for
+from flask import Blueprint, Flask, render_template, request, redirect, session, url_for
 from app.upload import upload_file
 
 con = sqlite3.connect("books.db", check_same_thread=False)
@@ -17,6 +17,10 @@ books_bp = Blueprint('books', __name__, url_prefix='/books')
 
 @books_bp.route("/")
 def books():
+    print(session.get('username'))
+    session['username'] = 'admin'
+    print(request.cookies)
+    # session.pop('username', None)
     result = cur.execute("SELECT *,rowid from books")
     new_result = []
     for book in result:

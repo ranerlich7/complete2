@@ -1,3 +1,4 @@
+app/static/uploads
 .vscode/
 .DS_Store
 books.db
