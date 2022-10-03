@@ -4,8 +4,10 @@ from flask import Blueprint, Flask, render_template, request, redirect, session,
 from app.upload import upload_file
 
 con = sqlite3.connect("books.db", check_same_thread=False)
+con.row_factory = sqlite3.Row
 cur = con.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS books (title, author, genre, year, filename)")
+cur.execute("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT , username, password)")
 con.commit()
 
 # def change_table():
