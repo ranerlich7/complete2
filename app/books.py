@@ -1,13 +1,14 @@
 import os
 import sqlite3
 from flask import Blueprint, Flask, render_template, request, redirect, session, url_for
+from app.login import login_required
 from app.upload import upload_file
 
 con = sqlite3.connect("books.db", check_same_thread=False)
 con.row_factory = sqlite3.Row
 cur = con.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS books (title, author, genre, year, filename)")
-cur.execute("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT , username, password)")
+cur.execute("CREATE TABLE IF NOT EXISTS user (id INTEGER  PRIMARY KEY AUTOINCREMENT , username UNIQUE, password)")
 con.commit()
 
 # def change_table():
@@ -18,6 +19,7 @@ con.commit()
 books_bp = Blueprint('books', __name__, url_prefix='/books')
 
 @books_bp.route("/")
+@login_required
 def books():
     print(session.get('username'))
     # session['username'] = 'admin'
@@ -38,6 +40,7 @@ def books():
 
 
 @books_bp.route("/deletebook")
+@login_required
 def deletebook():
     id = request.args.get('id')
     cur.execute(f"DELETE FROM books WHERE rowid={id};")
@@ -45,6 +48,7 @@ def deletebook():
     return redirect("/?message=Book Deleted")
 
 @books_bp.route("/addbookindb", methods=['POST'])
+@login_required
 def addbook_indb():
     from app.main import app
 
@@ -59,7 +63,9 @@ def addbook_indb():
     con.commit()
     return redirect("/?message=Book Added")
 
+
 @books_bp.route("/addbook")
+@login_required
 def addbook():
     return render_template("addbook.html")
 

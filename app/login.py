@@ -3,13 +3,13 @@ from flask import Blueprint, flash, g, redirect, render_template, request, sessi
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app.books import con
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 def get_db():
+    from app.books import con
     return con
 
 @auth_bp.route('/register', methods=('GET', 'POST'))
